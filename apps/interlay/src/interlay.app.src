@@ -5,7 +5,10 @@
   {registered, []},
   {applications, [
                   kernel,
-                  stdlib
+                  stdlib,
+                  queue_workers,
+                  eda
+                  % leporidae
                  ]},
   {mod, { interlay_app, []}},
   {env, []}
