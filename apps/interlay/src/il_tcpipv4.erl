@@ -6,4 +6,7 @@
 
 recv_data(Pid, _SocketOpts, Data) ->
     % timer:sleep(1000),
-    io:format("recv_data Pid: ~p, Data: ~p~n", [Pid, Data]).
+    io:format("~p recv_data Pid: ~p, Data: ~p~n", [?MODULE, Pid, Data]),
+    il_rabbitmq_queue:add_job(Data).
+
+

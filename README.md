@@ -15,12 +15,13 @@ erl -sname worker
 {ok, Socket1} = gen_tcp:connect("localhost", 9900, [{packet, 2}]).
 {ok, Socket2} = gen_tcp:connect("localhost", 9901, [{packet, 2}]).
 
-# Example1: ( Fire and forget - port 9900 setup in sys.config )
+# Example1: ( Fire and forget - port 9900 setup in sys.config - from erlang shell)
 ok = gen_tcp:send(Socket1, <<"async_work">>).
+flush().
 
-# Example2: ( wait for a response - port 9901 setup in sys.config )
+# Example2: ( wait for a response - port 9901 setup in sys.config - from erlang shell )
 ok = gen_tcp:send(Socket2, <<"sync_work">>).
-
+flush().
 
 
 
@@ -61,3 +62,17 @@ Let people know how they can dive into the project, include important links to t
 ## License
 
 A short snippet describing the license (MIT, Apache, etc.)
+
+
+
+
+TODO:
+
+1) example 1 has TCP -> rabbitmq(publish) -> rabbitmq(consume) 
+on the same node
+	- split publish and consume to diff nodes
+   TcpData buffer example
+
+2) example 2 has TCP -> rabbitmq(publish) ( node 1 )
+   node 2 has eda_out(http) -> consumes from rabbitmq
+   RestAPI example
