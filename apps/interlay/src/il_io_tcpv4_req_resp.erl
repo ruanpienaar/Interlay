@@ -5,7 +5,7 @@
 ]).
 
 recv_data(Pid, _SocketOpts, Data) ->
-    io:format("recv_data Pid: ~p, Data: ~p~n", [Pid, Data]),
+    % io:format("recv_data Pid: ~p, Data: ~p~n", [Pid, Data]),
     % Queue Job
     JobResponse = queue_workers_ets_api:run_job(example_ets_job_table, Data),
     JobResponseBin = ens_bin(JobResponse),
