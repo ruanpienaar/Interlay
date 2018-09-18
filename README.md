@@ -1,10 +1,42 @@
 ## Synopsis
 
-At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
+Interlay is a standalone collection of smaller apps, for easier testing and demonstration purposes.
 
 ## Code Example
 
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+TCP v4 queued data jobs example:
+sending data from tcpv4 to a ets queue table, and running a job per queue table entry:
+
+run interlay:
+./_build/default/rel/interlay/bin/interlay console
+
+start a seperate erlang node ( the client ):
+erl -sname worker
+{ok, Socket1} = gen_tcp:connect("localhost", 9900, [{packet, 2}]).
+{ok, Socket2} = gen_tcp:connect("localhost", 9901, [{packet, 2}]).
+
+# Example1: ( Fire and forget - port 9900 setup in sys.config )
+ok = gen_tcp:send(Socket1, <<"async_work">>).
+
+# Example2: ( wait for a response - port 9901 setup in sys.config )
+ok = gen_tcp:send(Socket2, <<"sync_work">>).
+
+
+
+
+# Time based
+timer:apply_interval(2500, gen_tcp, send, [Socket2, <<"SyncData">>]).
+
+
+
+
+
+
+
+
+
+
+
 
 ## Motivation
 
